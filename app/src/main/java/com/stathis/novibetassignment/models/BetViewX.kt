@@ -1,5 +1,7 @@
 package com.stathis.novibetassignment.models
 
+import com.stathis.novibetassignment.abstraction.LocalModel
+
 data class BetViewX(
     val betContextId: Int?,
     val betItems: Any?,
@@ -19,4 +21,6 @@ data class BetViewX(
     val text: String?,
     val title: String?,
     val url: Any?
-)
+) : LocalModel {
+    override fun equalsContent(data: LocalModel): Boolean = false
+}

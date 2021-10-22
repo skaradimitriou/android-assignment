@@ -1,5 +1,7 @@
 package com.stathis.novibetassignment.models
 
+import com.stathis.novibetassignment.abstraction.LocalModel
+
 data class LiveData(
     val adjustTimeMillis: Int?,
     val awayPoints: Int?,
@@ -28,4 +30,6 @@ data class LiveData(
     val timeToNextPhase: Any?,
     val timeToNextPhaseSeconds: Any?,
     val timeline: Any?
-)
+) : LocalModel {
+    override fun equalsContent(data: LocalModel): Boolean = false
+}

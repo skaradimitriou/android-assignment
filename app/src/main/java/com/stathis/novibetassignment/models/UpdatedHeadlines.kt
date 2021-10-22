@@ -1,3 +1,7 @@
 package com.stathis.novibetassignment.models
 
-class UpdatedHeadlines : ArrayList<UpdatedHeadlinesItem>()
+import com.stathis.novibetassignment.abstraction.LocalModel
+
+data class UpdatedHeadlines(val results : ArrayList<UpdatedHeadlinesItem>) : LocalModel {
+    override fun equalsContent(data: LocalModel): Boolean = false
+}
