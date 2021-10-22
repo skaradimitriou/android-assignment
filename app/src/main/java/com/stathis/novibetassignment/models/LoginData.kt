@@ -2,6 +2,6 @@ package com.stathis.novibetassignment.models
 
 import com.stathis.novibetassignment.abstraction.LocalModel
 
-class UpdatedGames : ArrayList<UpdatedGamesItem>(), LocalModel{
+data class LoginData(val userName : String, val password : String) : LocalModel{
     override fun equalsContent(data: LocalModel): Boolean = false
 }

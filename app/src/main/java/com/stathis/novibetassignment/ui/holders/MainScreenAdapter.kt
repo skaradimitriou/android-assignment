@@ -28,7 +28,7 @@ class MainScreenAdapter(val callback : ItemClickListener) : ListAdapter<LocalMod
 
     override fun getItemViewType(position: Int): Int = when(getItem(position)){
         is UpdatedHeadlines -> R.layout.holder_headlines_item
-        is UpdatedGames -> R.layout.hodler_games_item
+        //is UpdatedGames -> R.layout.hodler_games_item
         else -> R.layout.holder_empty_item
     }
 }

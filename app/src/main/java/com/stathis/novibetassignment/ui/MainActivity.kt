@@ -13,7 +13,8 @@ class MainActivity : SimplifiedActivity(R.layout.activity_main) {
     }
 
     override fun startOps() {
-       //
+        viewModel.pushLoginData()
+        viewModel.getData()
     }
 
     override fun stopOps() {
