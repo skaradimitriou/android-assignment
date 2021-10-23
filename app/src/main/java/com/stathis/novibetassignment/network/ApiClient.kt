@@ -1,9 +1,6 @@
 package com.stathis.novibetassignment.network
 
-import com.stathis.novibetassignment.models.LoginData
-import com.stathis.novibetassignment.models.TokenResponse
-import com.stathis.novibetassignment.models.UpdatedGames
-import com.stathis.novibetassignment.models.UpdatedHeadlines
+import com.stathis.novibetassignment.models.*
 import com.stathis.novibetassignment.util.BASE_URL
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,11 +19,11 @@ object ApiClient {
             .create(ApiService::class.java)
     }
 
-    fun getUpdatedGames(token : String): Call<UpdatedGames> {
+    fun getUpdatedGames(token : String): Call<List<UpdatedGamesItem>> {
         return api.getUpdatedGames(token)
     }
 
-    fun getUpdatedHeadlines(token : String): Call<UpdatedHeadlines> {
+    fun getUpdatedHeadlines(token : String): Call<List<UpdatedHeadlinesItem>> {
         return api.getUpdatedHeadlines(token)
     }
 

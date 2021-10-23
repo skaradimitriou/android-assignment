@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- my colors -->
+    <color name="novibet_bg">#303541</color>
+    <color name="novibet_dark">#202735</color>
+    <color name="novibet_light">#404756</color>
+
+    <color name="novibet_red">#F51E45</color>
+    <color name="novibet_cyan">#6DF5FE</color>
+
 </resources>

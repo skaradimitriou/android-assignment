@@ -2,21 +2,29 @@ package com.stathis.novibetassignment.ui
 
 import android.app.Application
 import android.util.Log
+import android.view.View
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.stathis.novibetassignment.abstraction.AbstractAndroidViewModel
-import com.stathis.novibetassignment.models.LoginData
-import com.stathis.novibetassignment.models.TokenResponse
-import com.stathis.novibetassignment.models.UpdatedGames
-import com.stathis.novibetassignment.models.UpdatedHeadlines
+import com.stathis.novibetassignment.callbacks.ItemClickListener
+import com.stathis.novibetassignment.models.*
 import com.stathis.novibetassignment.network.ApiClient
 import com.stathis.novibetassignment.network.SessionManager
+import com.stathis.novibetassignment.ui.holders.MainScreenAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainViewModel(app : Application) : AbstractAndroidViewModel(app) {
+class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClickListener {
 
+    val adapter = MainScreenAdapter(this)
     private val sessionManager = SessionManager(app)
+    val games = MutableLiveData<List<UpdatedGamesItem>>()
+    val headlines = MutableLiveData<List<UpdatedHeadlinesItem>>()
+    val isLoading = MutableLiveData<Boolean>()
+    val errorResponse = MutableLiveData<Boolean>()
 
     fun pushLoginData(){
         val loginData = LoginData("efstathios", "karadimitriou")
@@ -28,10 +36,12 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app) {
                 when(code == 200){
                     true -> sessionManager.saveAuthToken(result!!.token_type)
                 }
+
+                errorResponse.value = false
             }
 
             override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
-                Log.d("","")
+                //
             }
         })
     }
@@ -42,28 +52,57 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app) {
     }
 
     private fun getHeadlines(){
-        ApiClient.getUpdatedHeadlines(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<UpdatedHeadlines> {
-            override fun onResponse(call: Call<UpdatedHeadlines>, response: Response<UpdatedHeadlines>) {
+        ApiClient.getUpdatedHeadlines(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<List<UpdatedHeadlinesItem>> {
+            override fun onResponse(call: Call<List<UpdatedHeadlinesItem>>, response: Response<List<UpdatedHeadlinesItem>>) {
                 val result = response.body()
                 val code = response.code()
+                headlines.value = result
+
+                Log.d("",result.toString())
+                errorResponse.value = false
             }
 
-            override fun onFailure(call: Call<UpdatedHeadlines>, t: Throwable) {
-                Log.d("","")
+            override fun onFailure(call: Call<List<UpdatedHeadlinesItem>>, t: Throwable) {
+                errorResponse.value = true
             }
         })
     }
 
     private fun getGames(){
-        ApiClient.getUpdatedGames(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<UpdatedGames> {
-            override fun onResponse(call: Call<UpdatedGames>, response: Response<UpdatedGames>) {
+        ApiClient.getUpdatedGames(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<List<UpdatedGamesItem>> {
+            override fun onResponse(call: Call<List<UpdatedGamesItem>>, response: Response<List<UpdatedGamesItem>>) {
                 val result = response.body()
                 val code = response.code()
+
+                Log.d("",result.toString())
+                games.value = result
+                errorResponse.value = false
             }
 
-            override fun onFailure(call: Call<UpdatedGames>, t: Throwable) {
-                Log.d("","")
+            override fun onFailure(call: Call<List<UpdatedGamesItem>>, t: Throwable) {
+                errorResponse.value = true
             }
         })
+    }
+
+    fun observe(owner : LifecycleOwner){
+        games.observe(owner,Observer{
+            adapter.submitList(it)
+        })
+
+        headlines.observe(owner,Observer{
+            adapter.submitList(it)
+        })
+    }
+
+    fun release(owner: LifecycleOwner){
+        games.removeObservers(owner)
+        headlines.removeObservers(owner)
+    }
+
+    override fun onItemTap(view: View) {
+        when(view.tag){
+            // handle user clicks
+        }
     }
 }
