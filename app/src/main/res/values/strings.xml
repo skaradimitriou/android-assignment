@@ -2,6 +2,12 @@
     <string name="app_name">NovibetAssignment</string>
     <string name="main_screen_title">Novibet Assignment</string>
 
+    <!-- Login Data -->
+    <string name="username">userName</string>
+    <string name="password">password</string>
+    <string name="name">efstathios</string>
+    <string name="surname">karadimitriou</string>
+
     <!-- Headlines -->
     <string name="headline_start_time">22:00</string>
     <string name="headline_competitor1">Γουέστ Μπρομ</string>
