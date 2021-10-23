@@ -8,9 +8,9 @@ import com.stathis.novibetassignment.abstraction.AbstractViewHolder
 import com.stathis.novibetassignment.abstraction.DiffUtilClass
 import com.stathis.novibetassignment.abstraction.LocalModel
 import com.stathis.novibetassignment.callbacks.ItemClickListener
-import com.stathis.novibetassignment.models.UpdatedGames
+import com.stathis.novibetassignment.models.BetViewItem
+import com.stathis.novibetassignment.models.EventsItem
 import com.stathis.novibetassignment.models.UpdatedGamesItem
-import com.stathis.novibetassignment.models.UpdatedHeadlines
 import com.stathis.novibetassignment.models.UpdatedHeadlinesItem
 
 class MainScreenAdapter(val callback : ItemClickListener) : ListAdapter<LocalModel, AbstractViewHolder>(DiffUtilClass<LocalModel>()) {
@@ -29,8 +29,8 @@ class MainScreenAdapter(val callback : ItemClickListener) : ListAdapter<LocalMod
     }
 
     override fun getItemViewType(position: Int): Int = when(getItem(position)){
-        is UpdatedHeadlinesItem -> R.layout.holder_headlines_item
-        is UpdatedGamesItem -> R.layout.hodler_games_item
+        is BetViewItem -> R.layout.holder_headlines_item
+        is EventsItem -> R.layout.hodler_games_item
         else -> R.layout.holder_empty_item
     }
 }

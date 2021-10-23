@@ -3,56 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/dimen_10"
     app:cardCornerRadius="@dimen/dimen_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/novibet_dark"
-        android:padding="@dimen/dimen_10">
+        android:padding="@dimen/dimen_16">
+
+        <TextView
+            android:id="@+id/headline_start_time"
+            style="@style/text_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/headline_start_time" />
+
+        <View
+            android:id="@+id/start_time_center_point"
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="@dimen/dimen_1"
+            app:layout_constraintBottom_toBottomOf="@id/headline_start_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/headline_start_time" />
 
         <TextView
             android:id="@+id/headline_competitor1Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:paddingTop="22dp"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:paddingEnd="@dimen/dimen_10"
+            style="@style/text_18_bold"
+            app:layout_constraintBottom_toTopOf="@id/start_time_center_point"
             app:layout_constraintEnd_toStartOf="@id/headline_start_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Γουέστ Μπρομ" />
+            tools:text="@string/headline_competitor1" />
 
         <TextView
             android:id="@+id/headline_competitor2Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:paddingEnd="@dimen/dimen_10"
+            style="@style/text_18_bold"
             app:layout_constraintEnd_toStartOf="@id/headline_start_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headline_competitor1Caption"
-            tools:text="Μπόρνμουθ" />
-
-        <TextView
-            android:id="@+id/headline_start_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="22:00" />
+            app:layout_constraintTop_toBottomOf="@id/start_time_center_point"
+            tools:text="@string/headline_competitor2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -7,10 +7,10 @@
     android:background="@color/novibet_bg"
     tools:context=".ui.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/headlines_recycler"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/dimen_160"
         android:orientation="horizontal"
         tools:listitem="@layout/holder_headlines_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

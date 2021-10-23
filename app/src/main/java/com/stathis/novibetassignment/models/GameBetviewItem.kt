@@ -1,13 +1,12 @@
 package com.stathis.novibetassignment.models
 
-import com.google.gson.annotations.SerializedName
 import com.stathis.novibetassignment.abstraction.LocalModel
 
-data class UpdatedGamesItem(
-
-    @SerializedName("betViews")
-    val betviews : List<GameBetviewItem>
-
+data class GameBetviewItem(
+    val betViewKey :String,
+    val modelType :String,
+    val competitionContextCaption :String,
+    val competitions :List<CompetitionItem>
 ) : LocalModel{
     override fun equalsContent(data: LocalModel): Boolean = false
 }

@@ -1,57 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="@dimen/dimen_10"
-    android:layout_marginTop="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="@dimen/dimen_10"
+    android:layout_marginEnd="@dimen/dimen_10"
+    app:cardCornerRadius="@dimen/dimen_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="@dimen/dimen_10"
-        android:background="@color/novibet_light">
-
-        <TextView
-            android:id="@+id/game_competitor1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:paddingTop="22dp"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:paddingEnd="@dimen/dimen_10"
-            app:layout_constraintEnd_toStartOf="@id/game_elapsed_time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Περσεπάρ" />
-
-        <TextView
-            android:id="@+id/game_competitor2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:paddingEnd="@dimen/dimen_10"
-            app:layout_constraintEnd_toStartOf="@id/game_elapsed_time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/game_competitor1"
-            tools:text="Καλτένγκ Πούτρα" />
+        android:layout_height="match_parent"
+        android:background="@color/novibet_light"
+        android:padding="@dimen/dimen_10">
 
         <TextView
             android:id="@+id/game_elapsed_time"
+            style="@style/text_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/white"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="06:30" />
+            tools:text="@string/game_elapsed_time" />
+
+        <View
+            android:id="@+id/elapsed_time_center_point"
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="@dimen/dimen_1"
+            app:layout_constraintBottom_toBottomOf="@id/game_elapsed_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/game_elapsed_time" />
+
+        <TextView
+            android:id="@+id/game_competitor1"
+            style="@style/text_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/dimen_10"
+            app:layout_constraintBottom_toTopOf="@id/elapsed_time_center_point"
+            app:layout_constraintEnd_toStartOf="@id/game_elapsed_time"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/game_competitor1" />
+
+        <TextView
+            android:id="@+id/game_competitor2"
+            style="@style/text_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/dimen_10"
+            app:layout_constraintEnd_toStartOf="@id/game_elapsed_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/elapsed_time_center_point"
+            tools:text="@string/game_competitor_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

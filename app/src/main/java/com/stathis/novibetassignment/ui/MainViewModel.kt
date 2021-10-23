@@ -1,6 +1,7 @@
 package com.stathis.novibetassignment.ui
 
 import android.app.Application
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
@@ -12,6 +13,7 @@ import com.stathis.novibetassignment.models.*
 import com.stathis.novibetassignment.network.ApiClient
 import com.stathis.novibetassignment.network.SessionManager
 import com.stathis.novibetassignment.ui.holders.MainScreenAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,9 +22,10 @@ import retrofit2.Response
 class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClickListener {
 
     val adapter = MainScreenAdapter(this)
+    val gamesAdapter = MainScreenAdapter(this)
     private val sessionManager = SessionManager(app)
-    val games = MutableLiveData<List<UpdatedGamesItem>>()
-    val headlines = MutableLiveData<List<UpdatedHeadlinesItem>>()
+    val games = MutableLiveData<List<EventsItem>>()
+    val headlines = MutableLiveData<List<BetViewItem>>()
     val isLoading = MutableLiveData<Boolean>()
     val errorResponse = MutableLiveData<Boolean>()
 
@@ -46,15 +49,10 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
         })
     }
 
-    fun getData(){
-        getHeadlines()
-        getGames()
-    }
-
-    private fun getHeadlines(){
+    fun getHeadlines(){
         ApiClient.getUpdatedHeadlines(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<List<UpdatedHeadlinesItem>> {
             override fun onResponse(call: Call<List<UpdatedHeadlinesItem>>, response: Response<List<UpdatedHeadlinesItem>>) {
-                val result = response.body()
+                val result = response.body()?.first()?.betViews
                 val code = response.code()
                 headlines.value = result
 
@@ -68,14 +66,14 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
         })
     }
 
-    private fun getGames(){
+    fun getGames(){
         ApiClient.getUpdatedGames(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<List<UpdatedGamesItem>> {
             override fun onResponse(call: Call<List<UpdatedGamesItem>>, response: Response<List<UpdatedGamesItem>>) {
-                val result = response.body()
+                val events = response.body()?.first()?.betviews?.first()?.competitions?.first()?.events
                 val code = response.code()
 
-                Log.d("",result.toString())
-                games.value = result
+                Log.d("",events.toString())
+                games.value = events
                 errorResponse.value = false
             }
 
@@ -87,7 +85,7 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
 
     fun observe(owner : LifecycleOwner){
         games.observe(owner,Observer{
-            adapter.submitList(it)
+            gamesAdapter.submitList(it)
         })
 
         headlines.observe(owner,Observer{
