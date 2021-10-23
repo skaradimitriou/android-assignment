@@ -7,13 +7,16 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.google.gson.Gson
 import com.stathis.novibetassignment.abstraction.AbstractAndroidViewModel
 import com.stathis.novibetassignment.callbacks.ItemClickListener
+import com.stathis.novibetassignment.callbacks.MainScreenCallback
 import com.stathis.novibetassignment.models.*
 import com.stathis.novibetassignment.network.ApiClient
 import com.stathis.novibetassignment.network.SessionManager
 import com.stathis.novibetassignment.ui.holders.MainScreenAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,11 +31,15 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
     val headlines = MutableLiveData<List<BetViewItem>>()
     val isLoading = MutableLiveData<Boolean>()
     val errorResponse = MutableLiveData<Boolean>()
+    private lateinit var callback : MainScreenCallback
 
     fun pushLoginData(){
-        val loginData = LoginData("efstathios", "karadimitriou")
+        val json = JSONObject().also {
+            it.put("userName","efstathios")
+            it.put("password","karadimitriou")
+        }
 
-        ApiClient.login(loginData).enqueue(object : Callback<TokenResponse> {
+        ApiClient.login(json.toString()).enqueue(object : Callback<TokenResponse> {
             override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
                 val result = response.body()
                 val code = response.code()
@@ -53,10 +60,7 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
         ApiClient.getUpdatedHeadlines(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<List<UpdatedHeadlinesItem>> {
             override fun onResponse(call: Call<List<UpdatedHeadlinesItem>>, response: Response<List<UpdatedHeadlinesItem>>) {
                 val result = response.body()?.first()?.betViews
-                val code = response.code()
                 headlines.value = result
-
-                Log.d("",result.toString())
                 errorResponse.value = false
             }
 
@@ -70,9 +74,6 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
         ApiClient.getUpdatedGames(token = "Bearer ${sessionManager.fetchAuthToken()}").enqueue(object : Callback<List<UpdatedGamesItem>> {
             override fun onResponse(call: Call<List<UpdatedGamesItem>>, response: Response<List<UpdatedGamesItem>>) {
                 val events = response.body()?.first()?.betviews?.first()?.competitions?.first()?.events
-                val code = response.code()
-
-                Log.d("",events.toString())
                 games.value = events
                 errorResponse.value = false
             }
@@ -83,7 +84,9 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
         })
     }
 
-    fun observe(owner : LifecycleOwner){
+    fun observe(owner : LifecycleOwner, callback : MainScreenCallback){
+        this.callback = callback
+
         games.observe(owner,Observer{
             gamesAdapter.submitList(it)
         })
@@ -100,7 +103,8 @@ class MainViewModel(app : Application) : AbstractAndroidViewModel(app),ItemClick
 
     override fun onItemTap(view: View) {
         when(view.tag){
-            // handle user clicks
+            is BetViewItem -> callback.onHeadlineTap(view.tag as BetViewItem)
+            is EventsItem -> callback.onGameTap(view.tag as EventsItem)
         }
     }
 }

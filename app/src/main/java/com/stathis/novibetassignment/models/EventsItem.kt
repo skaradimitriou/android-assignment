@@ -8,7 +8,8 @@ data class EventsItem (
     val path : String,
     val isHighlighted : Boolean,
     val additionalCaptions : AdditionalCaptionsItem,
-    val liveData : LiveDataItem
+    val liveData : LiveDataItem,
+    val hasBetContextInfo : Boolean
 
 ) : LocalModel{
     override fun equalsContent(data: LocalModel): Boolean = false

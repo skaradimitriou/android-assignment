@@ -27,7 +27,7 @@ object ApiClient {
         return api.getUpdatedHeadlines(token)
     }
 
-    fun login(loginData: LoginData) : Call<TokenResponse>{
+    fun login(loginData: String) : Call<TokenResponse>{
         return api.login(loginData)
     }
 }

@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface ApiService {
 
     @POST("5d8e4bd9310000a2612b5448/login")
-    fun login(@Body loginData : LoginData) : Call<TokenResponse>
+    fun login(@Body loginData : String) : Call<TokenResponse>
 
     @GET("5d7114b2330000112177974d")
     fun getUpdatedGames(@Header("Authorization") token : String): Call<List<UpdatedGamesItem>>
