@@ -8,7 +8,9 @@ import retrofit2.http.*
 
 interface Endpoints {
 
-    @POST("5d8e4bd9310000a2612b5448/login")
+    //FIXME: Are those the correct api endpoints?
+
+    @POST("5d8e4bd9310000a2612b5448")
     fun login(@Body loginData : String) : Call<TokenResponse>
 
     @GET("5d7114b2330000112177974d")

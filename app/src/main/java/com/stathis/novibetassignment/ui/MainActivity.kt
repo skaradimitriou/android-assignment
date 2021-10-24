@@ -26,6 +26,10 @@ class MainActivity : SimplifiedActivity(R.layout.activity_main) {
     }
 
     override fun startOps() {
+        /*
+            FIXME: Replace kotlin synthetics with databinding
+         */
+
         viewModel.pushLoginData()
         viewModel.getHeadlines()
         viewModel.getGames()

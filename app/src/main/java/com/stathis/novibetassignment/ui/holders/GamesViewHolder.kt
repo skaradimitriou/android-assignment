@@ -19,8 +19,12 @@ class GamesViewHolder(itemView: View, callback: ItemClickListener) :
     var handler = Handler()
     var runnable: Runnable? = null
     var delay = 1000L
-    var counter = 0
     private lateinit var calendar: Calendar
+
+    /*
+    FIXME: a) Ask if negative elapse means that event has ended
+           b) Ask how to execute something every second in a better way
+     */
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun present(data: LocalModel) {
@@ -41,13 +45,12 @@ class GamesViewHolder(itemView: View, callback: ItemClickListener) :
 
                         itemView.game_elapsed_time.text = "${cleanTime.minute}:${cleanTime.second}"
                     }
+                    false -> itemView.game_elapsed_time.text = itemView.resources.getString(R.string.game_ended)
                 }
 
 
                 handler.postDelayed(Runnable {
                     handler.postDelayed(runnable!!, delay)
-
-                    counter++
 
                     when (data.liveData.isInPlay) {
                         true -> {
@@ -60,10 +63,7 @@ class GamesViewHolder(itemView: View, callback: ItemClickListener) :
 
                             itemView.game_elapsed_time.text = "$minutes:$formattedSeconds"
                         }
-                        false -> {
-                            itemView.game_elapsed_time.text =
-                                itemView.resources.getString(R.string.game_ended)
-                        }
+                        false -> itemView.game_elapsed_time.text = itemView.resources.getString(R.string.game_ended)
                     }
 
                 }.also { runnable = it }, delay)
