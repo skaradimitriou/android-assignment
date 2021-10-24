@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
-interface ApiService {
+interface Endpoints {
 
     @POST("5d8e4bd9310000a2612b5448/login")
     fun login(@Body loginData : String) : Call<TokenResponse>

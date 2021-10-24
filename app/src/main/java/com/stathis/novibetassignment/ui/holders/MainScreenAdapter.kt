@@ -10,8 +10,6 @@ import com.stathis.novibetassignment.abstraction.LocalModel
 import com.stathis.novibetassignment.callbacks.ItemClickListener
 import com.stathis.novibetassignment.models.BetViewItem
 import com.stathis.novibetassignment.models.EventsItem
-import com.stathis.novibetassignment.models.UpdatedGamesItem
-import com.stathis.novibetassignment.models.UpdatedHeadlinesItem
 
 class MainScreenAdapter(val callback : ItemClickListener) : ListAdapter<LocalModel, AbstractViewHolder>(DiffUtilClass<LocalModel>()) {
 

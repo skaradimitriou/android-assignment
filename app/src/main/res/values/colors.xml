@@ -17,4 +17,7 @@
     <color name="novibet_red">#F51E45</color>
     <color name="novibet_cyan">#6DF5FE</color>
 
+    <color name="success_green">#4BB543</color>
+    <color name="orange">#FE6E00</color>
+
 </resources>

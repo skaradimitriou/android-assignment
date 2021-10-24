@@ -19,4 +19,9 @@
     <string name="game_competitor_2">Καλτένγκ Πούτρα</string>
     <string name="game_ended">ENDED</string>
 
+    <!-- Error data handling -->
+    <string name="error_login_credentials">User authentication failed</string>
+    <string name="error_games_data">Error while getting games.</string>
+    <string name="error_headlines_data">Error while getting headlines.</string>
+
 </resources>
