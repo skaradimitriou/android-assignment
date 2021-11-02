@@ -8,6 +8,11 @@ import retrofit2.http.*
 
 interface Endpoints {
 
+    /*
+     * This class has the endpoints for our app.
+     * Future implementations: Add coroutines in order for your app to be faster.
+     */
+
     //FIXME: Are those the correct api endpoints?
 
     @POST("5d8e4bd9310000a2612b5448")

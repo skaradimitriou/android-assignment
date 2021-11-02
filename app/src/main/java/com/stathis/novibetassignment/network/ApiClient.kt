@@ -8,6 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
+    /*
+     * This is a singleton class.
+     * It creates the api service and the possible api function calls.
+     */
+
     private val service: Endpoints = Retrofit.Builder().baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
